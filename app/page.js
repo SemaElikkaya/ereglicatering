@@ -14,8 +14,13 @@ export default function EregliCatering() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
+      // Scroll yapılınca menü kapansın
+      if (mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+
       // Active section detection
-      const sections = ['ana-sayfa', 'hakkimizda', 'hizmetler', 'menuler', 'galeri', 'iletisim'];
+      const sections = ['hakkimizda', 'hizmetler', 'menuler', 'galeri', 'iletisim'];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -30,12 +35,24 @@ export default function EregliCatering() {
       }
     };
 
+    // Menü dışına tıklayınca kapansın
+    const handleClickOutside = (event) => {
+      const target = event.target;
+      if (mobileMenuOpen && !target.closest('nav')) {
+        setMobileMenuOpen(false);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [mobileMenuOpen]);
 
   const navLinks = [
-    { name: 'Anasayfa', href: 'ana-sayfa' },
     { name: 'Hakkımızda', href: 'hakkimizda' },
     { name: 'Hizmetler', href: 'hizmetler' },
     { name: 'Menüler', href: 'menuler' },
@@ -91,25 +108,25 @@ export default function EregliCatering() {
   ];
 
   const gallery = [
-    "https://images.unsplash.com/photo-1555244162-803834f70033?w=600&h=400&fit=crop",
-    "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=400&fit=crop",
-    "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=400&fit=crop",
-    "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&h=400&fit=crop",
-    "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=600&h=400&fit=crop",
-    "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&h=400&fit=crop"
+    "./image/gallery1.jpg",
+    "./image/gallery2.jpeg",
+    "./image/gallery3.jpeg",
+    "./image/gallery4.jpeg",
+    "./image/gallery5.jpeg",
+    "./image/gallery6.jpeg",
   ];
 
   return (
     <div className="min-h-screen bg-white">
       {/* Navbar */}
-      <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled
+      <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled || mobileMenuOpen
         ? 'bg-white shadow-lg'
         : 'bg-transparent'
         }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-3">
             {/* Logo - Her Zaman Solda */}
-            <div className="flex items-center">
+            <div className="flex items-center cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
               <img
                 src="/logo.png"
                 alt="Ereğli Catering Logo"
@@ -124,13 +141,13 @@ export default function EregliCatering() {
                   key={link.href}
                   onClick={() => scrollToSection(link.href)}
                   className={`relative transition-colors font-medium ${activeSection === link.href
-                    ? scrolled ? 'text-[#c02e2f]' : 'text-white'
-                    : scrolled ? 'text-gray-700 hover:text-[#c02e2f]' : 'text-white/90 hover:text-white'
+                    ? (scrolled || mobileMenuOpen) ? 'text-[#c02e2f]' : 'text-white'
+                    : (scrolled || mobileMenuOpen) ? 'text-gray-700 hover:text-[#c02e2f]' : 'text-white/90 hover:text-white'
                     }`}
                 >
                   {link.name}
                   {activeSection === link.href && (
-                    <span className={`absolute -bottom-1 left-0 w-full h-0.5 rounded-full ${scrolled ? 'bg-[#c02e2f]' : 'bg-white'
+                    <span className={`absolute -bottom-1 left-0 w-full h-0.5 rounded-full ${(scrolled || mobileMenuOpen) ? 'bg-[#c02e2f]' : 'bg-white'
                       }`}></span>
                   )}
                 </button>
@@ -151,7 +168,8 @@ export default function EregliCatering() {
               className="md:hidden p-2 rounded-lg transition-colors"
             >
               <svg
-                className={`w-6 h-6 transition-transform duration-300 ${scrolled ? 'text-gray-900' : 'text-white'} ${mobileMenuOpen ? 'rotate-180' : ''}`}
+                className={`w-6 h-6 transition-transform duration-300 ${(scrolled || mobileMenuOpen) ? 'text-gray-900' : 'text-white'
+                  } ${mobileMenuOpen ? 'rotate-180' : ''}`}
                 fill="none"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -173,7 +191,7 @@ export default function EregliCatering() {
             className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
               }`}
           >
-            <div className={`py-4 ${scrolled ? 'bg-white' : 'bg-black/80 backdrop-blur-sm'}`}>
+            <div className="py-4 bg-white">
               {navLinks.map((link, idx) => (
                 <button
                   key={link.href}
@@ -182,8 +200,8 @@ export default function EregliCatering() {
                     setMobileMenuOpen(false);
                   }}
                   className={`block w-full text-left px-4 py-3 transition-colors ${activeSection === link.href
-                    ? scrolled ? 'text-[#c02e2f] font-semibold bg-red-50' : 'text-white font-semibold bg-white/10'
-                    : scrolled ? 'text-gray-700 hover:bg-gray-50 hover:text-[#c02e2f]' : 'text-white/90 hover:bg-white/10 hover:text-white'
+                    ? 'text-[#c02e2f] font-semibold bg-red-50'
+                    : 'text-gray-700 hover:bg-gray-50 hover:text-[#c02e2f]'
                     }`}
                   style={{ animationDelay: `${idx * 50}ms` }}
                 >
@@ -229,22 +247,24 @@ export default function EregliCatering() {
               Ereğli Catering
             </h1>
             <p className="text-2xl md:text-3xl text-white/90 mb-12 font-light">
-              Lezzetin ve Kalitenin Adresi
+              Toplu Yemekte Çözüm Ortağınız
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <button
                 onClick={() => scrollToSection('menuler')}
-                className="bg-[#c02e2f] hover:bg-[#a02525] text-white px-10 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105 hover:shadow-2xl"
+                className="w-72 bg-[#c02e2f] hover:bg-[#a02525] text-white px-10 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105 hover:shadow-2xl"
               >
                 Menülerimizi İncele
               </button>
+
               <button
                 onClick={() => scrollToSection('iletisim')}
-                className="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-10 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105"
+                className="w-72 border-2 border-white text-white hover:bg-white hover:text-gray-900 px-10 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105"
               >
                 İletişime Geç
               </button>
             </div>
+
           </div>
         </div>
 
@@ -392,7 +412,7 @@ export default function EregliCatering() {
             <p className="text-xl text-gray-600">Lezzetlerimizden kareler</p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {gallery.map((img, idx) => (
               <div
                 key={idx}
@@ -426,82 +446,146 @@ export default function EregliCatering() {
       />
 
 
-      {/* Contact Section */}
-      <section id="iletisim" className="py-20 bg-gradient-to-br from-[#f33b3b] to-[#771c1c]">
+      {/* Contact Section - Restaurant Style */}
+      <section id="iletisim" className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="text-white">
-              <h2 className="text-5xl font-bold mb-6">Hemen İletişime Geçin</h2>
-              <p className="text-xl mb-8 text-red-100">
-                Hayalinizdeki etkinlik için detaylı bilgi alın ve özel teklifimizi keşfedin.
-              </p>
 
-              <div className="space-y-4">
-                {[
-                  { icon: Phone, text: "+90 555 123 45 67" },
-                  { icon: Mail, text: "info@ereglicatering.com" },
-                  { icon: MapPin, text: "Ereğli, Konya" }
-                ].map((item, idx) => (
-                  <div key={idx} className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-                      <item.icon className="w-6 h-6" />
-                    </div>
-                    <span className="text-lg">{item.text}</span>
-                  </div>
-                ))}
+          {/* Header */}
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold text-gray-900 mb-4">İletişime Geçin</h2>
+            <p className="text-xl text-gray-600">
+              Size en uygun yöntemle ulaşın, hemen teklif alın
+            </p>
+          </div>
+
+          {/* Contact Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+
+            {/* Telefon */}
+            <a href="tel:+905431632814" className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl p-8 text-center transition-all duration-300 transform hover:-translate-y-2 block">
+              <span className="w-16 h-16 bg-gradient-to-br from-[#c02e2f] to-[#a02525] rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                <Phone className="w-8 h-8 text-white" />
+              </span>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Telefon</h3>
+              <p className="text-[#c02e2f] font-medium">0545 952 93 15</p>
+              <p className="text-sm text-gray-500 mt-2">Hemen arayın</p>
+            </a>
+
+            {/* WhatsApp */}
+            {/* <a href="https://wa.me/905459529315?text=Merhaba, catering hizmeti hakkında bilgi almak istiyorum." target="_blank" rel="noopener noreferrer" className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl p-8 text-center transition-all duration-300 transform hover:-translate-y-2 block">
+              <span className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                </svg>
+              </span>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">WhatsApp</h3>
+              <p className="text-green-600 font-medium">Mesaj Gönder</p>
+              <p className="text-sm text-gray-500 mt-2">Hızlı yanıt</p>
+            </a> */}
+
+            {/* E-posta */}
+            <a href="mailto:info@ereglicatering.com" className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl p-8 text-center transition-all duration-300 transform hover:-translate-y-2 block">
+              <span className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                <Mail className="w-8 h-8 text-white" />
+              </span>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">E-posta</h3>
+              <p className="text-blue-600 font-medium text-sm">info@ereglicatering.com</p>
+              <p className="text-sm text-gray-500 mt-2">Mail gönderin</p>
+            </a>
+
+            {/* Konum */}
+            <a href="https://maps.app.goo.gl/U1YSsWHe5xcGynQH9" target="_blank" rel="noopener noreferrer" className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl p-8 text-center transition-all duration-300 transform hover:-translate-y-2 block">
+              <span className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                <MapPin className="w-8 h-8 text-white" />
+              </span>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Konum</h3>
+              <p className="text-orange-600 font-medium">Ereğli Catering</p>
+              <p className="text-sm text-gray-500 mt-2">Haritada görüntüle</p>
+            </a>
+
+          </div>
+
+          {/* Form Section */}
+          <div className="max-w-3xl mx-auto bg-white rounded-3xl shadow-2xl p-8 md:p-12">
+            <h3 className="text-3xl font-bold text-gray-900 mb-2 text-center">Teklif İsteyin</h3>
+            <p className="text-gray-600 mb-8 text-center">Formu doldurun, size ulaşalım</p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Ad Soyad</label>
+                <input type="text" placeholder="Adınız Soyadınız" className="w-full px-4 py-3 rounded-xl border border-gray-300 text-black focus:border-[#c02e2f] focus:ring-2 focus:ring-[#c02e2f]/20 transition-all outline-none" />
               </div>
-
-              <div className="flex space-x-4 mt-8">
-                <button className="w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all transform hover:scale-110">
-                  <Instagram className="w-6 h-6" />
-                </button>
-                <button className="w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all transform hover:scale-110">
-                  <Facebook className="w-6 h-6" />
-                </button>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Telefon</label>
+                <input type="tel" placeholder="0543 XXX XX XX" className="w-full px-4 py-3 rounded-xl border border-gray-300 text-black focus:border-[#c02e2f] focus:ring-2 focus:ring-[#c02e2f]/20 transition-all outline-none" />
               </div>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-2xl p-8">
-              <div className="space-y-6">
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Adınız Soyadınız"
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-red-600 focus:ring-2 focus:ring-red-200 transition-all outline-none"
-                  />
-                </div>
-                <div>
-                  <input
-                    type="email"
-                    placeholder="E-posta Adresiniz"
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-red-600 focus:ring-2 focus:ring-red-200 transition-all outline-none"
-                  />
-                </div>
-                <div>
-                  <input
-                    type="tel"
-                    placeholder="Telefon Numaranız"
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-red-600 focus:ring-2 focus:ring-red-200 transition-all outline-none"
-                  />
-                </div>
-                <div>
-                  <textarea
-                    rows="4"
-                    placeholder="Mesajınız"
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-red-600 focus:ring-2 focus:ring-red-200 transition-all outline-none resize-none"
-                  ></textarea>
-                </div>
-                <button
-                  onClick={(e) => e.preventDefault()}
-                  className="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-xl font-semibold transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
-                >
-                  Gönder
-                </button>
-              </div>
+            <div className="mt-6">
+              <label className="block text-sm font-medium text-gray-700 mb-2">E-posta</label>
+              <input type="email" placeholder="ornek@email.com" className="w-full px-4 py-3 rounded-xl border border-gray-300 text-black focus:border-[#c02e2f] focus:ring-2 focus:ring-[#c02e2f]/20 transition-all outline-none" />
+            </div>
+
+            <div className="mt-6">
+              <label className="block text-sm font-medium text-gray-700 mb-2">Etkinlik Türü</label>
+              <select className="w-full px-4 py-3 rounded-xl border border-gray-300 text-black focus:border-[#c02e2f] focus:ring-2 focus:ring-[#c02e2f]/20 transition-all outline-none">
+                <option>Düğün</option>
+                <option>Nişan</option>
+                <option>Kurumsal Etkinlik</option>
+                <option>Kokteyl</option>
+                <option>Diğer</option>
+              </select>
+            </div>
+
+            <div className="mt-6">
+              <label className="block text-sm font-medium text-gray-700 mb-2">Mesajınız</label>
+              <textarea rows={4} placeholder="Etkinliğiniz hakkında detayları paylaşın..." className="w-full px-4 py-3 rounded-xl border border-gray-300 text-black focus:border-[#c02e2f] focus:ring-2 focus:ring-[#c02e2f]/20 transition-all outline-none resize-none"></textarea>
+            </div>
+
+            <button type="button" className="w-full mt-6 bg-gradient-to-r from-[#c02e2f] to-[#a02525] hover:from-[#a02525] hover:to-[#8a1f1f] text-white py-4 rounded-xl font-semibold transition-all transform hover:scale-105 shadow-lg hover:shadow-xl">
+              Teklif İste
+            </button>
+          </div>
+
+          {/* Social Media */}
+          <div className="mt-12 text-center">
+            <p className="text-gray-600 mb-4">Sosyal medyadan takip edin</p>
+            <div className="flex justify-center space-x-4">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 rounded-full flex items-center justify-center transition-all transform hover:scale-110 shadow-lg">
+                <Instagram className="w-6 h-6 text-white" />
+              </a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center transition-all transform hover:scale-110 shadow-lg">
+                <Facebook className="w-6 h-6 text-white" />
+              </a>
             </div>
           </div>
+
         </div>
       </section>
+      {/* WhatsApp Floating Button - Sol Alt Köşe */}
+      <a href="https://wa.me/905459529315?text=Merhaba, catering hizmeti hakkında bilgi almak istiyorum."
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 group"
+      >
+        <div className="relative">
+          {/* Ana Buton */}
+          <div className="w-16 h-16 bg-green-500 hover:bg-green-600 rounded-full shadow-2xl flex items-center justify-center transition-all transform hover:scale-110 animate-pulse">
+            <svg className="w-9 h-9 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg>
+          </div>
+
+          {/* Bildirim Badge */}
+          <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-white"></span>
+
+          {/* Hover Tooltip */}
+          <div className="absolute left-20 bottom-0 bg-gray-900 text-white px-4 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl">
+            Hızlı Teklif Al 💬
+            <div className="absolute left-0 top-1/2 transform -translate-x-1 -translate-y-1/2 w-2 h-2 bg-gray-900 rotate-45"></div>
+          </div>
+        </div>
+      </a>
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-8">
