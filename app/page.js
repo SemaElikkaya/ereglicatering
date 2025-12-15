@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { Phone, Mail, MapPin, Instagram, Facebook, Clock, Users, Sparkles, Award, Utensils, Search } from 'lucide-react';
+import { Phone, Mail, MapPin, Instagram, Facebook, Clock, Users, Sparkles, Award, Utensils, Search, HandPlatter } from 'lucide-react';
 import CustomLightbox from './components/CustomLightbox';
 
 export default function EregliCatering() {
@@ -67,6 +67,7 @@ export default function EregliCatering() {
       window.scrollTo({ top: offsetTop, behavior: 'smooth' });
     }
   };
+  
 
   const services = [
     {
@@ -140,9 +141,9 @@ export default function EregliCatering() {
                 <button
                   key={link.href}
                   onClick={() => scrollToSection(link.href)}
-                  className={`relative transition-colors font-medium ${activeSection === link.href
+                  className={`relative transition-colors font-medium active:scale-95 ${activeSection === link.href
                     ? (scrolled || mobileMenuOpen) ? 'text-[#c02e2f]' : 'text-white'
-                    : (scrolled || mobileMenuOpen) ? 'text-gray-700 hover:text-[#c02e2f]' : 'text-white/90 hover:text-white'
+                    : (scrolled || mobileMenuOpen) ? 'text-gray-700 hover:text-[#c02e2f] active:text-[#c02e2f]' : 'text-white/90 hover:text-white active:text-white'
                     }`}
                 >
                   {link.name}
@@ -157,7 +158,7 @@ export default function EregliCatering() {
             {/* Desktop CTA Button */}
             <button
               onClick={() => scrollToSection('iletisim')}
-              className="hidden md:block bg-[#c02e2f] hover:bg-[#a02525] text-white px-6 py-2 rounded-full transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+              className="hidden md:block bg-[#c02e2f] hover:bg-[#a02525] active:bg-[#8a1f1f] active:scale-95 text-white px-6 py-2 rounded-full transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
               Teklif Al
             </button>
@@ -233,6 +234,8 @@ export default function EregliCatering() {
             loop
             muted
             playsInline
+            preload="metadata"
+            poster="./image/hero-poster.jpeg"
             className="w-full h-full object-cover"
           >
             <source src="/hero-video.mp4" type="video/mp4" />
@@ -252,14 +255,14 @@ export default function EregliCatering() {
             <div className="flex flex-wrap justify-center gap-4">
               <button
                 onClick={() => scrollToSection('menuler')}
-                className="w-72 bg-[#c02e2f] hover:bg-[#a02525] text-white px-10 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105 hover:shadow-2xl"
+                className="w-72 bg-[#c02e2f] hover:bg-[#a02525] active:bg-[#8a1f1f] active:scale-95 text-white px-10 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105 hover:shadow-2xl"
               >
                 Menülerimizi İncele
               </button>
 
               <button
                 onClick={() => scrollToSection('iletisim')}
-                className="w-72 border-2 border-white text-white hover:bg-white hover:text-gray-900 px-10 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105"
+                className="w-72 border-2 border-white text-white hover:bg-white hover:text-gray-900 active:bg-gray-100 active:text-gray-900 active:scale-95 px-10 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105"
               >
                 İletişime Geç
               </button>
@@ -341,8 +344,8 @@ export default function EregliCatering() {
                   />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-red-900/90 via-red-900/50 to-transparent flex flex-col justify-end p-8 transition-all duration-500">
-                  <service.icon className="w-12 h-12 text-white mb-4 transform transition-transform duration-500 group-hover:scale-110" />
-                  <h3 className="text-3xl font-bold text-white mb-2 transform transition-transform duration-500 group-hover:-translate-y-2">
+                  <HandPlatter className="w-12 h-12 text-white mb-4 transform transition-transform duration-500 group-hover:scale-110" />
+                  <h3 className="text-2xl font-bold text-white mb-2 transform transition-transform duration-500 group-hover:-translate-y-2">
                     {service.title}
                   </h3>
                   <p className="text-gray-200 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
@@ -420,17 +423,17 @@ export default function EregliCatering() {
                   setOpen(true);
                   setIndex(idx);
                 }}
-                className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group cursor-pointer"
+                className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl active:shadow-md transition-all duration-500 group cursor-pointer"
               >
                 <div className="aspect-[4/3]">
                   <img
                     src={img}
                     alt={`Gallery ${idx + 1}`}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-125"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-125 group-active:scale-110"
                   />
                 </div>
-                <div className="absolute inset-0 bg-red-600/0 group-hover:bg-red-600/40 transition-all duration-500 flex items-center justify-center">
-                  <Search className="w-12 h-12 text-white opacity-0 group-hover:opacity-100 transform scale-0 group-hover:scale-100 transition-all duration-500" />
+                <div className="absolute inset-0 bg-red-600/0 group-hover:bg-red-600/40 group-active:bg-red-600/60 transition-all duration-500 flex items-center justify-center">
+                  <Search className="w-12 h-12 text-white opacity-0 group-hover:opacity-100 group-active:opacity-100 transform scale-0 group-hover:scale-100 group-active:scale-90 transition-all duration-500" />
                 </div>
               </div>
             ))}
@@ -462,7 +465,7 @@ export default function EregliCatering() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
 
             {/* Telefon */}
-            <a href="tel:+905431632814" className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl p-8 text-center transition-all duration-300 transform hover:-translate-y-2 block">
+            <a href="tel:+905459529315" className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl p-8 text-center transition-all duration-300 transform hover:-translate-y-2 block">
               <span className="w-16 h-16 bg-gradient-to-br from-[#c02e2f] to-[#a02525] rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                 <Phone className="w-8 h-8 text-white" />
               </span>
@@ -532,7 +535,6 @@ export default function EregliCatering() {
                 <option>Düğün</option>
                 <option>Nişan</option>
                 <option>Kurumsal Etkinlik</option>
-                <option>Kokteyl</option>
                 <option>Diğer</option>
               </select>
             </div>
@@ -551,7 +553,7 @@ export default function EregliCatering() {
           <div className="mt-12 text-center">
             <p className="text-gray-600 mb-4">Sosyal medyadan takip edin</p>
             <div className="flex justify-center space-x-4">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 rounded-full flex items-center justify-center transition-all transform hover:scale-110 shadow-lg">
+              <a href="https://www.instagram.com/ereglicatering/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 active:from-pink-700 active:to-purple-800 rounded-full flex items-center justify-center transition-all transform hover:scale-110 active:scale-100 shadow-lg">
                 <Instagram className="w-6 h-6 text-white" />
               </a>
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center transition-all transform hover:scale-110 shadow-lg">
@@ -590,7 +592,7 @@ export default function EregliCatering() {
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-gray-400">© 2024 Ereğli Catering. Tüm hakları saklıdır.</p>
+          <p className="text-gray-400">© 2025 Ereğli Catering. Tüm hakları saklıdır.</p>
         </div>
       </footer>
 
