@@ -67,7 +67,7 @@ export default function EregliCatering() {
       window.scrollTo({ top: offsetTop, behavior: 'smooth' });
     }
   };
-  
+
 
   const services = [
     {
@@ -239,6 +239,17 @@ export default function EregliCatering() {
             className="w-full h-full object-cover"
           >
             <source src="/hero-video.mp4" type="video/mp4" />
+          </video>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            poster="./image/mobile-poster.jpeg"
+            className="md:hidden w-full h-full object-cover"
+          >
+            <source src="/hero-video-mobile.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70"></div>
         </div>
