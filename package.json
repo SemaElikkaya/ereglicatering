@@ -13,6 +13,7 @@
     "next": "16.0.8",
     "react": "19.2.1",
     "react-dom": "19.2.1",
+    "swiper": "^12.0.3",
     "yet-another-react-lightbox": "^3.27.0"
   },
   "devDependencies": {

@@ -25,3 +25,21 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Swiper okları görsellerin dışına al */
+.swiper-button-prev,
+.swiper-button-next {
+  color: #c02e2f !important;
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 9999px !important;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+}
+
+
+
+/* ikon rengi */
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 18px !important;
+  color: #c02e2f !important;
+}
