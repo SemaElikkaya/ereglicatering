@@ -4,7 +4,7 @@ import { Clock, Users, Sparkles, Award, Utensils, Search, HandPlatter, Scroll } 
 import CustomLightbox from './components/CustomLightbox';
 import ContactSection from './components/ContactSection';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
+import { Autoplay, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { useSearchParams } from 'next/navigation';
@@ -13,6 +13,8 @@ import Navbar from './components/Navbar';
 import WhatsAppButton from './components/WhatsappButton';
 import Footer from './components/Footer';
 import ScrollHandler from './components/ScrollHandler';
+import IftarMenuCarousel from './components/IftarMenuCarousel';
+import LokantaSection from './components/LokantaSection';
 
 
 
@@ -35,7 +37,7 @@ export default function EregliCatering() {
       }
 
       // Active section detection
-      const sections = ['hakkimizda', 'hizmetler', 'iftar-menuleri', 'menuler', 'galeri', 'iletisim'];
+      const sections = ['hakkimizda', 'hizmetler', 'iftar-menuleri', 'menuler', 'galeri', 'esnaf-lokantasi', 'iletisim'];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -72,6 +74,7 @@ export default function EregliCatering() {
     { name: 'Hizmetler', href: 'hizmetler' },
     { name: 'Menüler', href: 'menuler' },
     { name: 'İftar Menüleri', href: 'iftar-menuleri' },
+    { name: 'Esnaf Lokantası', href: 'esnaf-lokantasi' },
     { name: 'Galeri', href: 'galeri' },
     { name: 'İletişim', href: 'iletisim' }
   ];
@@ -274,12 +277,14 @@ export default function EregliCatering() {
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-red-900/90 via-red-900/50 to-transparent flex flex-col justify-end p-8 transition-all duration-500">
-                    <HandPlatter className="w-12 h-12 text-white mb-4 transform transition-transform duration-500 group-hover:scale-110" />
-                    <h3 className="text-2xl font-bold text-white mb-2 transform transition-transform duration-500 group-hover:-translate-y-2">
-                      {service.title}
-                    </h3>
-                    <p className="text-gray-200 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                  <div className="absolute inset-0 bg-gradient-to-t from-red-900/90 via-red-900/50 to-transparent flex flex-col justify-end p-8 min-h-full transition-all duration-500">
+                    <div className="space-y-3">
+                      <HandPlatter className="w-12 h-12 text-white mb-4 transform transition-transform duration-500 group-hover:scale-110" />
+                      <h3 className="text-xl font-bold text-white mb-2 transform transition-transform duration-500 group-hover:-translate-y-2">
+                        {service.title}
+                      </h3>
+                    </div>
+                    <p className="text-gray-200 opacity-100 md:opacity-0 md:group-hover:opacity-100 transform translate-y-0 md:translate-y-4  md:group-hover:translate-y-0 transition-all duration-500">
                       {service.desc}
                     </p>
                   </div>
@@ -355,316 +360,7 @@ export default function EregliCatering() {
               </p>
             </div>
 
-            {/* Menü Kartları */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-              {/* Menü 1 - Taş Kebabı Bol Etli */}
-              <div className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl active:shadow-md transition-all duration-500 overflow-hidden transform hover:-translate-y-2 active:translate-y-0">
-
-                {/* Görsel */}
-                <div className="aspect-square overflow-hidden">
-                  <img
-                    src="./image/iftar-menu1.jpg"
-                    alt=" Bol Etli Tas Kebabı Menü"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                </div>
-
-                {/* İçerik */}
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#c02e2f] transition-colors">
-                    Bol Etli Tas Kebabı Menü
-                  </h3>
-
-                  <div className="bg-gray-50 rounded-2xl p-4 mb-6">
-                    <p className="text-xs text-gray-500 font-semibold mb-3 uppercase tracking-wide">Menü İçeriği</p>
-                    <ul className="space-y-2">
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Çorba</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Bol Etli Tas Kebabı</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Pilav</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Mevsim Salata</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Taze Pide & İçecek</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <button
-                    onClick={() => scrollToSection('iletisim')}
-                    className="w-full bg-gradient-to-r from-[#c02e2f] to-[#a02525] hover:from-[#a02525] hover:to-[#8a1f1f] active:from-[#8a1f1f] active:to-[#771c1c] text-white py-3.5 rounded-xl font-semibold transition-all transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
-                  >
-                    Sipariş Ver
-                  </button>
-                </div>
-              </div>
-
-              {/* Menü 2 - Tas Kebaplı İftar */}
-              <div className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl active:shadow-md transition-all duration-500 overflow-hidden transform hover:-translate-y-2 active:translate-y-0">
-                <div className="aspect-square overflow-hidden">
-                  <img
-                    src="./image/iftar-menu1.jpg"
-                    alt="Taş Kebaplı İftar"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                </div>
-
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#c02e2f] transition-colors">
-                    Tas Kebaplı Menü
-                  </h3>
-
-                  <div className="bg-gray-50 rounded-2xl p-4 mb-6">
-                    <p className="text-xs text-gray-500 font-semibold mb-3 uppercase tracking-wide">Menü İçeriği</p>
-                    <ul className="space-y-2">
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Çorba</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Tas Kebabı</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Pilav</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Mevsim Salata</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Taze Pide & İçecek</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <button
-                    onClick={() => scrollToSection('iletisim')}
-                    className="w-full bg-gradient-to-r from-[#c02e2f] to-[#a02525] hover:from-[#a02525] hover:to-[#8a1f1f] active:from-[#8a1f1f] active:to-[#771c1c] text-white py-3.5 rounded-xl font-semibold transition-all transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
-                  >
-                    Sipariş Ver
-                  </button>
-                </div>
-              </div>
-
-              {/* Menü 3 - Tavuk Soteli */}
-              <div className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl active:shadow-md transition-all duration-500 overflow-hidden transform hover:-translate-y-2 active:translate-y-0">
-                <div className="aspect-square overflow-hidden">
-                  <img
-                    src="./image/iftar-menu3.jpg"
-                    alt="Tavuk Soteili Menü"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                </div>
-
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#c02e2f] transition-colors">
-                    Tavuk Soteli Menü
-                  </h3>
-
-                  <div className="bg-gray-50 rounded-2xl p-4 mb-6">
-                    <p className="text-xs text-gray-500 font-semibold mb-3 uppercase tracking-wide">Menü İçeriği</p>
-                    <ul className="space-y-2">
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Çorba</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Tavuk Sote</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Pilav</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Mevsim Salata</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Taze Pide & İçecek</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <button
-                    onClick={() => scrollToSection('iletisim')}
-                    className="w-full bg-gradient-to-r from-[#c02e2f] to-[#a02525] hover:from-[#a02525] hover:to-[#8a1f1f] active:from-[#8a1f1f] active:to-[#771c1c] text-white py-3.5 rounded-xl font-semibold transition-all transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
-                  >
-                    Sipariş Ver
-                  </button>
-                </div>
-              </div>
-
-              {/* Menü 4 - Etli Kuru Fasulye */}
-              <div className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl active:shadow-md transition-all duration-500 overflow-hidden transform hover:-translate-y-2 active:translate-y-0">
-                <div className="aspect-square overflow-hidden">
-                  <img
-                    src="./image/iftar-menu4.jpeg"
-                    alt="Etli Kuru Fasulye"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                </div>
-
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#c02e2f] transition-colors">
-                    Etli Kuru Fasulyeli Menü
-                  </h3>
-
-                  <div className="bg-gray-50 rounded-2xl p-4 mb-6">
-                    <p className="text-xs text-gray-500 font-semibold mb-3 uppercase tracking-wide">Menü İçeriği</p>
-                    <ul className="space-y-2">
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Çorba</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Etli Kuru Fasulye</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Pilav</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Mevsim Salata</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Taze Pide & İçecek</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <button
-                    onClick={() => scrollToSection('iletisim')}
-                    className="w-full bg-gradient-to-r from-[#c02e2f] to-[#a02525] hover:from-[#a02525] hover:to-[#8a1f1f] active:from-[#8a1f1f] active:to-[#771c1c] text-white py-3.5 rounded-xl font-semibold transition-all transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
-                  >
-                    Sipariş Ver
-                  </button>
-                </div>
-              </div>
-
-              {/* Menü 5 - Etli Nohutlu */}
-              <div className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl active:shadow-md transition-all duration-500 overflow-hidden transform hover:-translate-y-2 active:translate-y-0">
-
-                <div className="aspect-square overflow-hidden">
-                  <img
-                    src="./image/iftar-menu5.jpg"
-                    alt="Etli Nohutlu Menü"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                </div>
-
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#c02e2f] transition-colors">
-                    Etli Nohutlu Menü
-                  </h3>
-
-                  <div className="bg-gray-50 rounded-2xl p-4 mb-6">
-                    <p className="text-xs text-gray-500 font-semibold mb-3 uppercase tracking-wide">Menü İçeriği</p>
-                    <ul className="space-y-2">
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Çorba</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Etli Nohut</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Pilav</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Mevsim Salata</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Taze Pide & İçecek</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <button
-                    onClick={() => scrollToSection('iletisim')}
-                    className="w-full bg-gradient-to-r from-[#c02e2f] to-[#a02525] hover:from-[#a02525] hover:to-[#8a1f1f] active:from-[#8a1f1f] active:to-[#771c1c] text-white py-3.5 rounded-xl font-semibold transition-all transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
-                  >
-                    Sipariş Ver
-                  </button>
-                </div>
-              </div>
-
-              {/* Menü 6 - Misket Köfteli */}
-              <div className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl active:shadow-md transition-all duration-500 overflow-hidden transform hover:-translate-y-2 active:translate-y-0">
-
-                <div className="aspect-square overflow-hidden">
-                  <img
-                    src="./image/iftar-menu6.jpg"
-                    alt="Misket Köfteli Menü"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                </div>
-
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#c02e2f] transition-colors">
-                    Misket Köfteli Menü
-                  </h3>
-
-
-                  <div className="bg-gray-50 rounded-2xl p-4 mb-6">
-                    <p className="text-xs text-gray-500 font-semibold mb-3 uppercase tracking-wide">Menü İçeriği</p>
-                    <ul className="space-y-2">
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Çorba</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Misket Köfte</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Pilav</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Mevsim Salata</span>
-                      </li>
-                      <li className="flex items-start text-gray-700 text-sm">
-                        <span className="w-1.5 h-1.5 bg-[#c02e2f] rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
-                        <span>Taze Pide & İçecek</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <button
-                    onClick={() => scrollToSection('iletisim')}
-                    className="w-full bg-gradient-to-r from-[#c02e2f] to-[#a02525] hover:from-[#a02525] hover:to-[#8a1f1f] active:from-[#8a1f1f] active:to-[#771c1c] text-white py-3.5 rounded-xl font-semibold transition-all transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
-                  >
-                    Sipariş Ver
-                  </button>
-                </div>
-              </div>
-
-            </div>
+            <IftarMenuCarousel scrollToSection={scrollToSection} />
           </div>
         </section>
 
@@ -679,22 +375,16 @@ export default function EregliCatering() {
             </div>
 
             {/* Carousel */}
-            <div className="relative max-w-7xl mx-auto overflow-visible">
+            <div className="relative max-w-3xl mx-auto overflow-visible">
               <Swiper
-                modules={[Navigation]}
+                modules={[Navigation, Autoplay]}
                 navigation
-                spaceBetween={16}
-                breakpoints={{
-                  0: {
-                    slidesPerView: 1,
-                  },
-                  768: {
-                    slidesPerView: 2,
-                  },
-                  1024: {
-                    slidesPerView: 3,
-                  },
+                autoplay={{
+                  delay: 3500,
+                  disableOnInteraction: false,
                 }}
+                spaceBetween={16}
+                slidesPerView={1}
               >
 
                 {gallery.map((img, idx) => (
@@ -710,13 +400,12 @@ export default function EregliCatering() {
                         <img
                           src={img}
                           alt={`Gallery ${idx + 1}`}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-125"
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-125 group-active:scale-125"
                         />
                       </div>
 
                       {/* Hover overlay */}
-                      <div className="absolute inset-0 bg-red-600/0 group-hover:bg-red-600/40 transition-all duration-500 flex items-center justify-center">
-                        <Search className="w-12 h-12 text-white opacity-0 group-hover:opacity-100 transform scale-0 group-hover:scale-100 transition-all duration-500" />
+                      <div className="absolute inset-0 bg-red-600/0  transition-all duration-500 flex items-center justify-center">
                       </div>
                     </div>
                   </SwiperSlide>
@@ -726,14 +415,16 @@ export default function EregliCatering() {
 
           </div>
         </section>
-
+        {/*  
         <CustomLightbox
           images={gallery}
           open={open}
           initialIndex={index}
           onClose={() => setOpen(false)}
         />
-
+        */}
+        
+        <LokantaSection scrollToSection={scrollToSection} />
 
         {/* Contact Section - Restaurant Style */}
         <ContactSection />

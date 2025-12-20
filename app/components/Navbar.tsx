@@ -51,6 +51,7 @@ export default function Navbar({
         { name: 'Menüler', href: 'menuler' },
         { name: 'İftar Menüleri', href: 'iftar-menuleri' },
         { name: 'Galeri', href: 'galeri' },
+        { name: 'Esnaf Lokantası', href: 'esnaf-lokantasi' },
         { name: 'İletişim', href: 'iletisim' }
     ];
 
@@ -81,7 +82,7 @@ export default function Navbar({
                     </div>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:flex space-x-8">
+                    <div className="hidden md:flex space-x-4 lg:space-x-8 text-sm lg:text-base">
                         {navLinks.map((link) => {
                             const isActive = activeSection === link.href;
 
@@ -89,7 +90,7 @@ export default function Navbar({
                                 <button
                                     key={link.href}
                                     onClick={() => scrollToSection(link.href)}
-                                    className={`relative transition-colors font-medium active:scale-95
+                                    className={`relative transition-colors font-medium text-sm lg:text-base active:scale-95
                     ${isActive
                                             ? isLight
                                                 ? 'text-[#c02e2f]'
@@ -116,7 +117,7 @@ export default function Navbar({
                     {/* CTA */}
                     <button
                         onClick={() => router.push('/iletisim')}
-                        className="hidden md:block bg-[#c02e2f] hover:bg-[#a02525] text-white px-6 py-2 rounded-full transition-all transform hover:scale-105 shadow-lg"
+                        className="hidden md:block bg-[#c02e2f] hover:bg-[#a02525] text-white px-4 lg:px-6  py-2 text-sm lg:text-base rounded-full transition-all transform hover:scale-105 shadow-lg"
                     >
                         Teklif Al
                     </button>

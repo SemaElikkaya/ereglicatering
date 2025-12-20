@@ -14,7 +14,7 @@ export default function ContactSection() {
                 </div>
 
                 {/* Contact Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 mb-16">
 
                     {/* Telefon */}
                     <a href="tel:+905459529315" className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl p-8 text-center transition-all duration-300 transform hover:-translate-y-2 block">
@@ -39,12 +39,12 @@ export default function ContactSection() {
             </a> */}
 
                     {/* E-posta */}
-                    <a href="mailto:info@ereglicatering.com" className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl p-8 text-center transition-all duration-300 transform hover:-translate-y-2 block">
+                    <a href="mailto:ereglicatering@gmail.com" className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl p-8 text-center transition-all duration-300 transform hover:-translate-y-2 block">
                         <span className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                             <Mail className="w-8 h-8 text-white" />
                         </span>
                         <h3 className="text-lg font-semibold text-gray-900 mb-2">E-posta</h3>
-                        <p className="text-blue-600 font-medium text-sm">info@ereglicatering.com</p>
+                        <p className="text-blue-600 font-medium text-sm">ereglicatering@gmail.com</p>
                         <p className="text-sm text-gray-500 mt-2">Mail gönderin</p>
                     </a>
 
@@ -54,7 +54,7 @@ export default function ContactSection() {
                             <MapPin className="w-8 h-8 text-white" />
                         </span>
                         <h3 className="text-lg font-semibold text-gray-900 mb-2">Konum</h3>
-                        <p className="text-orange-600 font-medium">Ereğli Catering</p>
+                        <p className="text-orange-600 font-medium">Cedit Ali Paşa, Yaren Sk. No:8, 59740 Marmaraereğlisi/Tekirdağ</p>
                         <p className="text-sm text-gray-500 mt-2">Haritada görüntüle</p>
                     </a>
 
@@ -108,9 +108,9 @@ export default function ContactSection() {
                         <a href="https://www.instagram.com/ereglicatering/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 active:from-pink-700 active:to-purple-800 rounded-full flex items-center justify-center transition-all transform hover:scale-110 active:scale-100 shadow-lg">
                             <Instagram className="w-6 h-6 text-white" />
                         </a>
-                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center transition-all transform hover:scale-110 shadow-lg">
+                        {/* <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center transition-all transform hover:scale-110 shadow-lg">
                             <Facebook className="w-6 h-6 text-white" />
-                        </a>
+                        </a> */}
                     </div>
                 </div>
 
