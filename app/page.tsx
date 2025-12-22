@@ -21,53 +21,10 @@ import LokantaSection from './components/LokantaSection';
 export default function EregliCatering() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('ana-sayfa');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
   const router = useRouter();
 
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-
-      // Scroll yapılınca menü kapansın
-      if (mobileMenuOpen) {
-        setMobileMenuOpen(false);
-      }
-
-      // Active section detection
-      const sections = ['hakkimizda', 'hizmetler', 'iftar-menuleri', 'menuler', 'galeri', 'esnaf-lokantasi', 'iletisim'];
-      const scrollPosition = window.scrollY + 100;
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
-    };
-
-    // Menü dışına tıklayınca kapansın
-    const handleClickOutside = (event) => {
-      const target = event.target;
-      if (mobileMenuOpen && !target.closest('nav')) {
-        setMobileMenuOpen(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [mobileMenuOpen]);
 
   const navLinks = [
     { name: 'Hakkımızda', href: 'hakkimizda' },
@@ -86,6 +43,45 @@ export default function EregliCatering() {
       window.scrollTo({ top: offsetTop, behavior: 'smooth' });
     }
   };
+
+  useEffect(() => {
+    const sections = [
+      'ana-sayfa',
+      'hakkimizda',
+      'hizmetler',
+      'menuler',
+      'iftar-menuleri',
+      'galeri',
+      'esnaf-lokantasi',
+      'iletisim',
+    ];
+
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 120;
+
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+
+        const { offsetTop, offsetHeight } = el;
+        if (
+          scrollPosition >= offsetTop &&
+          scrollPosition < offsetTop + offsetHeight
+        ) {
+          setActiveSection(id);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // ilk yüklemede
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
 
 
   const services = [
@@ -147,7 +143,7 @@ export default function EregliCatering() {
         {/* Hero Section with Video */}
         <section id="ana-sayfa" className="relative h-screen overflow-hidden">
           {/* Video Background */}
-          <div className="absolute inset-0">
+          <div className="absolute inset-0 pointer-events-none">
             {/* Mobil Video - 768px ALTINDA */}
             <video
               autoPlay
@@ -168,13 +164,14 @@ export default function EregliCatering() {
               muted
               playsInline
               preload="metadata"
-              poster="./image/hero-poster.jpg"
+              poster="./image/hero-poster.jpeg"
               className="hidden md:block w-full h-full object-cover"
             >
               <source src="/hero-video.mp4" type="video/mp4" />
             </video>
 
-            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70 pointer-events-none"></div>
+
           </div>
 
           {/* Content - Centered */}
@@ -206,7 +203,7 @@ export default function EregliCatering() {
           </div>
 
           {/* Scroll Indicator */}
-          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce pointer-events-none">
             <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
               <div className="w-1 h-3 bg-white rounded-full mt-2 animate-[slideDown_1.5s_ease-in-out_infinite]"></div>
             </div>
@@ -378,7 +375,9 @@ export default function EregliCatering() {
             <div className="relative max-w-3xl mx-auto overflow-visible">
               <Swiper
                 modules={[Navigation, Autoplay]}
-                navigation
+                navigation={{
+                  enabled: typeof window !== 'undefined' && window.innerWidth >= 768
+                }}
                 autoplay={{
                   delay: 3500,
                   disableOnInteraction: false,
@@ -390,10 +389,6 @@ export default function EregliCatering() {
                 {gallery.map((img, idx) => (
                   <SwiperSlide key={idx}>
                     <div
-                      onClick={() => {
-                        setOpen(true);
-                        setIndex(idx);
-                      }}
                       className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group cursor-pointer"
                     >
                       <div className="aspect-[4/3]">
@@ -401,11 +396,12 @@ export default function EregliCatering() {
                           src={img}
                           alt={`Gallery ${idx + 1}`}
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-125 group-active:scale-125"
+                          draggable="false"
                         />
                       </div>
 
                       {/* Hover overlay */}
-                      <div className="absolute inset-0 bg-red-600/0  transition-all duration-500 flex items-center justify-center">
+                      <div className="absolute inset-0 bg-red-600/0 transition-all duration-500 flex items-center justify-center pointer-events-none">
                       </div>
                     </div>
                   </SwiperSlide>
@@ -415,15 +411,8 @@ export default function EregliCatering() {
 
           </div>
         </section>
-        {/*  
-        <CustomLightbox
-          images={gallery}
-          open={open}
-          initialIndex={index}
-          onClose={() => setOpen(false)}
-        />
-        */}
-        
+
+
         <LokantaSection scrollToSection={scrollToSection} />
 
         {/* Contact Section - Restaurant Style */}

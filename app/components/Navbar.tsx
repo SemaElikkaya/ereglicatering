@@ -37,11 +37,11 @@ export default function Navbar({
         };
 
         window.addEventListener('scroll', handleScroll);
-        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('click', handleClickOutside);
 
         return () => {
             window.removeEventListener('scroll', handleScroll);
-            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('click', handleClickOutside);
         };
     }, [mobileMenuOpen]);
 
@@ -67,6 +67,7 @@ export default function Navbar({
 
     return (
         <nav
+            onClick={(e) => e.stopPropagation()}
             className={`fixed w-full z-50 transition-all duration-500 ${isLight ? 'bg-white shadow-lg' : 'bg-transparent'
                 }`}
         >
@@ -145,7 +146,9 @@ export default function Navbar({
 
                 {/* Mobile Menu */}
                 <div
-                    className={`md:hidden transition-all duration-300 ${mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                    className={`md:hidden transition-all duration-300 ${mobileMenuOpen
+                            ? 'max-h-96 opacity-100 pointer-events-auto'
+                            : 'max-h-0 opacity-0 pointer-events-none'
                         }`}
                 >
                     <div className="py-4 bg-white">
