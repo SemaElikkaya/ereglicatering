@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: 'Ereğli Catering | Marmara Ereğli Profesyonel Catering Hizmeti',
+  title: 'Ereğli Catering | Marmaraereğlisi Profesyonel Catering Hizmeti',
   description: 'Marmaraereğlisi`nin köklü catering firması.Düğün, nişan, kurumsal etkinlikler için profesyonel yemek hizmeti. 15 yıllık deneyim, kusursuz sunum.',
   keywords: 'marmaraereğlisi catering, tekirdağ catering, ereğli catering, ereğli düğün yemeği, ereğli nişan organizasyonu, kurumsal catering',
 }

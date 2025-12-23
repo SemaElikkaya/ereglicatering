@@ -170,7 +170,8 @@ export default function Navbar({
                         {/* 🔥 MOBILE CTA */}
                         <div className="px-4 pt-4">
                             <button
-                                onClick={() => {
+                                onClick={(e) => {
+                                    e.stopPropagation();
                                     router.push('/iletisim');
                                     setMobileMenuOpen(false);
                                 }}

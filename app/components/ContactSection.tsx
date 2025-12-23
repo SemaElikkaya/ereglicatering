@@ -23,10 +23,10 @@ export default function ContactSection() {
                 formRef.current,
                 'dLNnyDvUHr1waKZQk'      // EmailJS'den alacaksın
             );
-            
+
             setSuccess(true);
             formRef.current.reset();
-            
+
             // 5 saniye sonra success mesajını kaldır
             setTimeout(() => setSuccess(false), 5000);
         } catch (err) {
@@ -53,14 +53,39 @@ export default function ContactSection() {
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 mb-16">
 
                     {/* Telefon */}
-                    <a href="tel:+905459529315" className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl p-8 text-center transition-all duration-300 transform hover:-translate-y-2 block">
+                    <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl p-8 text-center transition-all duration-300 transform hover:-translate-y-2">
                         <span className="w-16 h-16 bg-gradient-to-br from-[#c02e2f] to-[#a02525] rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                             <Phone className="w-8 h-8 text-white" />
                         </span>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2">Telefon</h3>
-                        <p className="text-[#c02e2f] font-medium">0545 952 93 15</p>
-                        <p className="text-sm text-gray-500 mt-2">Hemen arayın</p>
-                    </a>
+
+                        <h3 className="text-lg font-semibold text-gray-900 mb-3">Telefon</h3>
+
+                        <div className="space-y-2">
+                            <a
+                                href="tel:+905459529315"
+                                className="block text-[#c02e2f] font-medium hover:underline"
+                            >
+                                0545 952 93 15
+                            </a>
+
+                            <a
+                                href="tel:+905436132814"
+                                className="block text-[#c02e2f] font-medium hover:underline"
+                            >
+                                0543 613 28 14
+                            </a>
+
+                            <a
+                                href="tel:+902826132387"
+                                className="block text-[#c02e2f] font-medium hover:underline"
+                            >
+                                0282 613 23 87
+                            </a>
+                        </div>
+
+                        <p className="text-sm text-gray-500 mt-3">Hemen arayın</p>
+                    </div>
+
 
                     {/* E-posta */}
                     <a href="mailto:ereglicatering@gmail.com" className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl p-8 text-center transition-all duration-300 transform hover:-translate-y-2 block">
@@ -77,7 +102,7 @@ export default function ContactSection() {
                         <span className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                             <MapPin className="w-8 h-8 text-white" />
                         </span>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2">Konum</h3>
+                        <h3 className="text-lg font-semibold text-gray-900 mb-2">Ereğli Catering Konum</h3>
                         <p className="text-orange-600 font-medium">Cedit Ali Paşa, Yaren Sk. No:8, 59740 Marmaraereğlisi/Tekirdağ</p>
                         <p className="text-sm text-gray-500 mt-2">Haritada görüntüle</p>
                     </a>
@@ -109,40 +134,40 @@ export default function ContactSection() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">Ad Soyad</label>
-                                <input 
-                                    type="text" 
+                                <input
+                                    type="text"
                                     name="from_name"
-                                    placeholder="Adınız Soyadınız" 
+                                    placeholder="Adınız Soyadınız"
                                     required
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 text-black focus:border-[#c02e2f] focus:ring-2 focus:ring-[#c02e2f]/20 transition-all outline-none" 
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 text-black focus:border-[#c02e2f] focus:ring-2 focus:ring-[#c02e2f]/20 transition-all outline-none"
                                 />
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">Telefon</label>
-                                <input 
-                                    type="tel" 
+                                <input
+                                    type="tel"
                                     name="phone"
-                                    placeholder="0543 XXX XX XX" 
+                                    placeholder="0543 XXX XX XX"
                                     required
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 text-black focus:border-[#c02e2f] focus:ring-2 focus:ring-[#c02e2f]/20 transition-all outline-none" 
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 text-black focus:border-[#c02e2f] focus:ring-2 focus:ring-[#c02e2f]/20 transition-all outline-none"
                                 />
                             </div>
                         </div>
 
                         <div className="mt-6">
                             <label className="block text-sm font-medium text-gray-700 mb-2">E-posta</label>
-                            <input 
-                                type="email" 
+                            <input
+                                type="email"
                                 name="from_email"
-                                placeholder="ornek@email.com" 
+                                placeholder="ornek@email.com"
                                 required
-                                className="w-full px-4 py-3 rounded-xl border border-gray-300 text-black focus:border-[#c02e2f] focus:ring-2 focus:ring-[#c02e2f]/20 transition-all outline-none" 
+                                className="w-full px-4 py-3 rounded-xl border border-gray-300 text-black focus:border-[#c02e2f] focus:ring-2 focus:ring-[#c02e2f]/20 transition-all outline-none"
                             />
                         </div>
 
                         <div className="mt-6">
                             <label className="block text-sm font-medium text-gray-700 mb-2">Etkinlik Türü</label>
-                            <select 
+                            <select
                                 name="event_type"
                                 required
                                 className="w-full px-4 py-3 rounded-xl border border-gray-300 text-black focus:border-[#c02e2f] focus:ring-2 focus:ring-[#c02e2f]/20 transition-all outline-none"
@@ -156,17 +181,17 @@ export default function ContactSection() {
 
                         <div className="mt-6">
                             <label className="block text-sm font-medium text-gray-700 mb-2">Mesajınız</label>
-                            <textarea 
-                                rows={4} 
+                            <textarea
+                                rows={4}
                                 name="message"
-                                placeholder="Etkinliğiniz hakkında detayları paylaşın..." 
+                                placeholder="Etkinliğiniz hakkında detayları paylaşın..."
                                 required
                                 className="w-full px-4 py-3 rounded-xl border border-gray-300 text-black focus:border-[#c02e2f] focus:ring-2 focus:ring-[#c02e2f]/20 transition-all outline-none resize-none"
                             ></textarea>
                         </div>
 
-                        <button 
-                            type="submit" 
+                        <button
+                            type="submit"
                             disabled={loading}
                             className="w-full mt-6 bg-gradient-to-r from-[#c02e2f] to-[#a02525] hover:from-[#a02525] hover:to-[#8a1f1f] text-white py-4 rounded-xl font-semibold transition-all transform hover:scale-105 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                         >

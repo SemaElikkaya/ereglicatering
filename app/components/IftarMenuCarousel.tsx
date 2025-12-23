@@ -10,7 +10,7 @@ import 'swiper/css/pagination';
 
 export default function IftarMenuCarousel({ scrollToSection }: { scrollToSection: (id: string) => void }) {
     return (
-        <div className="relative pb-40 mx-4 sm:mx-8 md:mx-12 lg:mx-16">
+        <div className="relative  mx-4 sm:mx-8 md:mx-12 lg:mx-16">
             <style jsx global>{`
     .iftar-menu-carousel {
         padding-bottom: 30px;

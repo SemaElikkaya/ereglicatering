@@ -234,7 +234,7 @@ export default function LokantaSection({ scrollToSection }: { scrollToSection: (
                                     📍
                                 </div>
                                 <h4 className="text-2xl md:text-xl font-bold text-gray-900 mb-4 text-center">
-                                    Adresimiz
+                                    Esnaf Lokantası Adresi
                                 </h4>
                                 <p className="text-gray-600 text-center leading-relaxed">
                                     Bahçelievler, <br />
@@ -261,10 +261,10 @@ export default function LokantaSection({ scrollToSection }: { scrollToSection: (
                                     Çalışma Saatleri
                                 </h4>
                                 <p className="text-gray-600 mb-2 text-center">
-                                    <span className="font-semibold text-gray-800">Hafta İçi:</span> 06:30 - 20:00
+                                    <span className="font-semibold text-gray-800">Hafta İçi:</span> 06:30 - 18:00
                                 </p>
                                 <p className="text-gray-600 text-center">
-                                    <span className="font-semibold text-gray-800">Cumartesi:</span> 06:30 - 20:00
+                                    <span className="font-semibold text-gray-800">Cumartesi:</span> 06:30 - 18:00
                                 </p>
                                 <p className="text-gray-600 text-center">
                                     <span className="font-semibold text-gray-800">Pazar:</span> Kapalı
